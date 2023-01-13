@@ -1,0 +1,35 @@
+ [class*="col"] {
+
+
+     margin: 30px;
+
+
+
+  
+
+
+
+ }
+
+.header{
+    height: 80px;
+    margin-bottom: 30px;
+    
+  
+}
+
+ .card{
+
+
+    border-radius: 1rem;
+
+    overflow: visible;
+    padding: 20px;
+
+ }
+
+ .btn-pill{
+
+    border-radius: 1rem;
+ }
+
