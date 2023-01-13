@@ -22,15 +22,13 @@ fetch("https://hickory-quilled-actress.glitch.me/computers")
     .then(computers => addComputersToSelect(computers));
 
   
-  
-    //  .then(() => updateComputerInfo(computers[0]))
-
-
 const addComputersToSelect = (computers) => {
     computers.forEach(x => addComputerToSelect(x));
     console.log(computers);
     
-    updateComputerInfo(computers[0]);
+    
+    //choose the second to be the first because i liked the look more 🤠  
+    updateComputerInfo(computers[1]);
 
 
 
@@ -51,24 +49,10 @@ const addComputerToSelect = (computer) => {
 }
 
 
-
-
-
-
 const handleComputerSelectChange = e => {
     const selectedComputer = computers[e.target.selectedIndex];
 
     updateComputerInfo(selectedComputer);
-
-/*     computerPriceElement.innerText = `${selectedComputer.price} Kr`;
-    computerTextElement.innerText = selectedComputer.description;
-    computerSelectedNameElement.innerText = selectedComputer.title;
-    computerImageElement.src = `${imageUrlPrefix}${selectedComputer.image}`;
-
-    computerFeatureTextElement.innerText = selectedComputer.specs.join(" ")
- */
-    
-    
 
 
 }
