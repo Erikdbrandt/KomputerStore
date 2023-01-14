@@ -23,16 +23,12 @@ fetch("https://hickory-quilled-actress.glitch.me/computers")
   
 const addComputersToSelect = (computers) => {
     computers.forEach(x => addComputerToSelect(x));
-    console.log(computers);
     
     //choose the second to be the first because i liked the look more 🤠  
     updateComputerInfo(computers[1]);
 }
 
 const addComputerToSelect = (computer) => {
-
-    console.log(computer.description);
-
     const computerElement = document.createElement("option");
     computerElement.value = computer.id;
     computerElement.appendChild(document.createTextNode(computer.title));
