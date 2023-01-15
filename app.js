@@ -10,6 +10,7 @@ const computerSelectedNameElement = document.getElementById("selectedComputerNam
 const computerTextElement = document.getElementById("computerText");
 const computerPriceElement = document.getElementById("computerPrice");
 const buyBtnElement = document.getElementById("buyBtn");
+const hiddenLoanDivElement = document.getElementById("loanDiv");
 
 const imageUrlPrefix = "https://hickory-quilled-actress.glitch.me/"
 
@@ -63,6 +64,10 @@ const handleLoanBtn = () => {
     let requestedLoanAmount = prompt("How much you want to loan?")
 
     console.log(requestedLoanAmount);
+
+    hiddenLoanDivElement.style.display = "inline"
+
+
 
 }
 
