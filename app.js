@@ -20,10 +20,10 @@ fetch("https://hickory-quilled-actress.glitch.me/computers")
     .then(data => computers = data)
     .then(computers => addComputersToSelect(computers));
 
-  
+
 const addComputersToSelect = (computers) => {
     computers.forEach(x => addComputerToSelect(x));
-    
+
     //choose the second to be the first because i liked the look more 🤠  
     updateComputerInfo(computers[1]);
 }
@@ -52,10 +52,18 @@ const handleComputerSelectChange = e => {
 
 }
 
-const handleWorkBtn = e =>{
-let currentValue = parseInt(payAmountBalanceElement.innerHTML);
+const handleWorkBtn = () => {
+    let currentValue = parseInt(payAmountBalanceElement.innerHTML);
 
-   payAmountBalanceElement.innerText = currentValue + 100;
+    payAmountBalanceElement.innerText = currentValue + 100;
+}
+
+const handleLoanBtn = () => {
+
+    let requestedLoanAmount = prompt("How much you want to loan?")
+
+    console.log(requestedLoanAmount);
+
 }
 
 
@@ -64,3 +72,7 @@ selectElement.addEventListener("change", handleComputerSelectChange);
 
 
 workBtnElement.addEventListener("click", handleWorkBtn);
+
+loanBtnElement.addEventListener("click", handleLoanBtn);
+
+
