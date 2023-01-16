@@ -11,8 +11,12 @@ const computerTextElement = document.getElementById("computerText");
 const computerPriceElement = document.getElementById("computerPrice");
 const buyBtnElement = document.getElementById("buyBtn");
 const hiddenLoanDivElement = document.getElementById("loanDiv");
+const outstandingLoanAmountElement = document.getElementById("outstandingLoanAmount");
+const repayBtnElement = document.getElementById("repayBtn");
+
 
 const imageUrlPrefix = "https://hickory-quilled-actress.glitch.me/"
+let hasLoan = false;
 
 let computers = [];
 
@@ -43,7 +47,7 @@ const updateComputerInfo = selectedComputer => {
     computerSelectedNameElement.innerText = selectedComputer.title;
     computerImageElement.src = `${imageUrlPrefix}${selectedComputer.image}`;
 
-    computerFeatureTextElement.innerText = selectedComputer.specs.join(" ")
+    computerFeatureTextElement.innerText = selectedComputer.specs.join("\n")
 }
 
 const handleComputerSelectChange = e => {
@@ -59,19 +63,90 @@ const handleWorkBtn = () => {
     payAmountBalanceElement.innerText = currentValue + 100;
 }
 
+
+
 const handleLoanBtn = () => {
 
-    let requestedLoanAmount = prompt("How much you want to loan?")
+    let currentPayAmount = parseInt(payAmountBalanceElement.innerHTML);
 
-    console.log(requestedLoanAmount);
+    let maximumLoanAmount = (currentPayAmount * 2) - parseInt(outstandingLoanAmountElement.innerHTML);
 
-    hiddenLoanDivElement.style.display = "inline"
+    let requestedLoanAmount = parseInt(prompt(`How much you want to get a loan for? \n Maximum amount is: ${maximumLoanAmount}`));
 
+    if (typeof requestedLoanAmount === "number" && requestedLoanAmount != 0) {
+
+        if (!hasLoan) {
+            if (requestedLoanAmount <= maximumLoanAmount) {
+                outstandingLoanAmountElement.innerText = parseInt(outstandingLoanAmountElement.innerHTML) + parseInt(requestedLoanAmount);
+
+                bankBalanceElement.innerText = (parseInt(requestedLoanAmount) + parseInt(bankBalanceElement.innerText))
+
+
+            } else {
+                alert(`The maximum loan amount is ${maximumLoanAmount}`)
+            }
+        } else {
+            alert(`You already have a loan`)
+        }
+    }
+}
+
+
+
+const handleOutStandingLoanChange = () => {
+
+    if (parseInt(outstandingLoanAmountElement.innerHTML) > 0) {
+
+        hiddenLoanDivElement.style.display = "inline"
+        hasLoan = true;
+
+    } else {
+        hiddenLoanDivElement.style.display = "none"
+        hasLoan = false;
+
+    }
 
 
 }
 
 
+const handleRepayBtn = () => {
+
+
+    let repayAmount = parseInt(payAmountBalanceElement.innerHTML);
+
+    let outstandingLoanAmount = parseInt(outstandingLoanAmountElement.innerHTML);
+
+    if (repayAmount !== 0) {
+
+
+        if (repayAmount >= outstandingLoanAmount) {
+
+            let restAmount = repayAmount - outstandingLoanAmount;
+
+            outstandingLoanAmountElement.innerText = 0;
+
+            bankBalanceElement.innerText = (parseInt(bankBalanceElement.innerText) + restAmount);
+
+            payAmountBalanceElement.innerText = 0;
+
+        } else {
+
+            outstandingLoanAmountElement.innerText = outstandingLoanAmount - repayAmount;
+            
+            payAmountBalanceElement.innerText = 0;
+        }
+
+    }
+
+
+}
+
+
+
+repayBtnElement.addEventListener("click", handleRepayBtn)
+
+outstandingLoanAmountElement.addEventListener("DOMSubtreeModified", handleOutStandingLoanChange);
 
 selectElement.addEventListener("change", handleComputerSelectChange);
 
