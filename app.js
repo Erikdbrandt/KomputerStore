@@ -76,8 +76,9 @@ const handleLoanBtn = () => {
 
     let requestedLoanAmount = parseInt(prompt(`How much you want to get a loan for? \n Maximum amount is: ${maximumLoanAmount}`));
 
-    if (typeof requestedLoanAmount === "number" && requestedLoanAmount != 0) {
+    if (requestedLoanAmount != 0 && !isNaN(requestedLoanAmount)) {
 
+        console.log(requestedLoanAmount);
         if (!hasLoan) {
             if (requestedLoanAmount <= maximumLoanAmount) {
                 outstandingLoanAmountElement.innerText = parseInt(outstandingLoanAmountElement.innerHTML) + parseInt(requestedLoanAmount);
@@ -186,6 +187,20 @@ function repayLoanHandler(repayAmount) {
 
 
 const handleBuyComputer = () => {
+
+
+    let bankBalance = parseInt(bankBalanceElement.innerText);
+    let computerPrice = parseInt(computerPriceElement.innerText);
+
+
+    if(bankBalance => computerPrice){
+        
+        bankBalanceElement.innerText = bankBalance - computerPrice;
+
+        alert(`You are now the owner of ${computerSelectedNameElement.innerText}`)
+        
+
+    }
 
 
 }
