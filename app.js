@@ -9,7 +9,7 @@ const computerImageElement = document.getElementById("image");
 const computerSelectedNameElement = document.getElementById("selectedComputerName");
 const computerTextElement = document.getElementById("computerText");
 const computerPriceElement = document.getElementById("computerPrice");
-const buyBtnElement = document.getElementById("buyBtn");
+const buyComputerBtnElement = document.getElementById("buyBtn");
 const hiddenLoanDivElement = document.getElementById("loanDiv");
 const outstandingLoanAmountElement = document.getElementById("outstandingLoanAmount");
 const repayBtnElement = document.getElementById("repayBtn");
@@ -69,7 +69,10 @@ const handleLoanBtn = () => {
 
     let currentPayAmount = parseInt(payAmountBalanceElement.innerText);
 
-    let maximumLoanAmount = (currentPayAmount * 2) - parseInt(outstandingLoanAmountElement.innerText);
+
+    let currentBankAmount = parseInt(bankBalanceElement.innerText);
+
+    let maximumLoanAmount = currentBankAmount * 2;
 
     let requestedLoanAmount = parseInt(prompt(`How much you want to get a loan for? \n Maximum amount is: ${maximumLoanAmount}`));
 
@@ -128,14 +131,12 @@ const handleBankBtn = () => {
     bankBalance = parseInt(bankBalanceElement.innerText);
     if (payAmountBalanceElement != 0) {
 
-
         if (!hasLoan) {
 
             bankBalanceElement.innerText = payAmountBalance + bankBalance;
 
             payAmountBalanceElement.innerText = 0;
           
-
         } else {
 
             let payAmountBalanceToLoan = (payAmountBalance * 0.1)
@@ -182,6 +183,16 @@ function repayLoanHandler(repayAmount) {
     }
 }
 
+
+
+const handleBuyComputer = () => {
+
+
+}
+
+
+buyComputerBtnElement.addEventListener("click", handleBuyComputer )
+
 bankBtnElement.addEventListener("click", handleBankBtn);
 
 repayBtnElement.addEventListener("click", handleRepayBtn);
@@ -189,7 +200,6 @@ repayBtnElement.addEventListener("click", handleRepayBtn);
 outstandingLoanAmountElement.addEventListener("DOMSubtreeModified", handleOutStandingLoanChange);
 
 selectElement.addEventListener("change", handleComputerSelectChange);
-
 
 workBtnElement.addEventListener("click", handleWorkBtn);
 
