@@ -193,13 +193,15 @@ const handleBuyComputer = () => {
     let computerPrice = parseInt(computerPriceElement.innerText);
 
 
-    if(bankBalance => computerPrice){
+    if(bankBalance >= computerPrice){
         
         bankBalanceElement.innerText = bankBalance - computerPrice;
 
         alert(`You are now the owner of ${computerSelectedNameElement.innerText}`)
         
 
+    }else{
+        alert(`Like we say in sweden: Pengar kan bygga ett hus, men det krävs kärlek för att göra det till ett hem. \n English: You are broke `)
     }
 
 
