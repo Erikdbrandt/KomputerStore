@@ -58,7 +58,7 @@ const handleComputerSelectChange = e => {
 }
 
 const handleWorkBtn = () => {
-    let currentValue = parseInt(payAmountBalanceElement.innerHTML);
+    let currentValue = parseInt(payAmountBalanceElement.innerText);
 
     payAmountBalanceElement.innerText = currentValue + 100;
 }
@@ -67,9 +67,9 @@ const handleWorkBtn = () => {
 
 const handleLoanBtn = () => {
 
-    let currentPayAmount = parseInt(payAmountBalanceElement.innerHTML);
+    let currentPayAmount = parseInt(payAmountBalanceElement.innerText);
 
-    let maximumLoanAmount = (currentPayAmount * 2) - parseInt(outstandingLoanAmountElement.innerHTML);
+    let maximumLoanAmount = (currentPayAmount * 2) - parseInt(outstandingLoanAmountElement.innerText);
 
     let requestedLoanAmount = parseInt(prompt(`How much you want to get a loan for? \n Maximum amount is: ${maximumLoanAmount}`));
 
@@ -95,7 +95,7 @@ const handleLoanBtn = () => {
 
 const handleOutStandingLoanChange = () => {
 
-    if (parseInt(outstandingLoanAmountElement.innerHTML) > 0) {
+    if (parseInt(outstandingLoanAmountElement.innerText) > 0) {
 
         hiddenLoanDivElement.style.display = "inline"
         hasLoan = true;
@@ -115,7 +115,49 @@ const handleRepayBtn = () => {
 
     let repayAmount = parseInt(payAmountBalanceElement.innerHTML);
 
+
+    repayLoanHandler(repayAmount);
+
+
+}
+
+
+
+const handleBankBtn = () => {
+    payAmountBalance = parseInt(payAmountBalanceElement.innerText);
+    bankBalance = parseInt(bankBalanceElement.innerText);
+    if (payAmountBalanceElement != 0) {
+
+
+        if (!hasLoan) {
+
+            bankBalanceElement.innerText = payAmountBalance + bankBalance;
+
+            payAmountBalanceElement.innerText = 0;
+          
+
+        } else {
+
+            let payAmountBalanceToLoan = (payAmountBalance * 0.1)
+
+            repayLoanHandler(payAmountBalanceToLoan);
+
+            let payAmountBalanceToBank = payAmountBalance - payAmountBalanceToLoan;
+
+            bankBalanceElement.innerText = bankBalance + payAmountBalanceToBank;
+
+        }
+
+    }
+
+
+
+}
+
+function repayLoanHandler(repayAmount) {
+
     let outstandingLoanAmount = parseInt(outstandingLoanAmountElement.innerHTML);
+
 
     if (repayAmount !== 0) {
 
@@ -133,18 +175,16 @@ const handleRepayBtn = () => {
         } else {
 
             outstandingLoanAmountElement.innerText = outstandingLoanAmount - repayAmount;
-            
+
             payAmountBalanceElement.innerText = 0;
         }
 
     }
-
-
 }
 
+bankBtnElement.addEventListener("click", handleBankBtn);
 
-
-repayBtnElement.addEventListener("click", handleRepayBtn)
+repayBtnElement.addEventListener("click", handleRepayBtn);
 
 outstandingLoanAmountElement.addEventListener("DOMSubtreeModified", handleOutStandingLoanChange);
 
@@ -154,5 +194,6 @@ selectElement.addEventListener("change", handleComputerSelectChange);
 workBtnElement.addEventListener("click", handleWorkBtn);
 
 loanBtnElement.addEventListener("click", handleLoanBtn);
+
 
 
