@@ -1,8 +1,12 @@
 # KomputerStore
 
 
-##
+## what it does
 This projects creates a small website that can simulate a store where you can buy computers. To buy the computers you need to work and maybe take a loan. The loan should be repayed before another loan is made. 
+
+
+## What languages and technology I use
+For this project I have used HTML, CSS and Javascript. The data about the computers are fetched with a API
 
 
 ## First project on noroff fulstack developer course
