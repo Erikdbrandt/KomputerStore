@@ -146,6 +146,7 @@ const handleOutStandingLoanChange = () => {
         hiddenLoanDivElement.style.display = "none"
         hasLoan = false;
 
+        
     }
 
 
@@ -175,6 +176,7 @@ Function that fires when bank btn is clicked
 const handleBankBtn = () => {
     payAmountBalance = parseInt(payAmountBalanceElement.innerText);
     bankBalance = parseInt(bankBalanceElement.innerText);
+    
     //checks if paybalance is not 0
     if (payAmountBalanceElement != 0) {
         // checks if there is a loan

@@ -6,7 +6,7 @@ This projects creates a small website that can simulate a store where you can bu
 
 
 ## What languages and technology I use
-For this project I have used HTML, CSS and Javascript. The data about the computers are fetched with a API
+For this project I have used HTML, CSS and Javascript. The data about the computers is fetched with an API. For styling of the UI I have used Bootstrap
 
 
 ## First project on noroff fulstack developer course
