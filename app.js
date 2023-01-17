@@ -20,18 +20,34 @@ let hasLoan = false;
 
 let computers = [];
 
+
+/* 
+Fetching data from the api and puting it into the computer array
+calling the addComputersToSelect function including the computers
+
+*/
 fetch("https://hickory-quilled-actress.glitch.me/computers")
     .then(Response => Response.json())
     .then(data => computers = data)
     .then(computers => addComputersToSelect(computers));
 
 
+
+/* 
+running a foreach-loop on the computers and populationg the select dropdown
+also adding the computer with index 0 as the first computer to be displayed 
+*/
 const addComputersToSelect = (computers) => {
     computers.forEach(x => addComputerToSelect(x));
 
-    //choose the second to be the first because i liked the look more 🤠  
-    updateComputerInfo(computers[1]);
+    updateComputerInfo(computers[0]);
 }
+
+
+/* 
+creating option-elements and adding the title as textnode on the computerelement
+in the end adding the option element to the select element
+*/
 
 const addComputerToSelect = (computer) => {
     const computerElement = document.createElement("option");
@@ -39,6 +55,11 @@ const addComputerToSelect = (computer) => {
     computerElement.appendChild(document.createTextNode(computer.title));
     selectElement.appendChild(computerElement);
 }
+
+/* 
+a function to update the ui with the info from the computer array. The selectedcomputer is the computer at the selected index
+
+*/
 
 const updateComputerInfo = selectedComputer => {
 
@@ -50,12 +71,25 @@ const updateComputerInfo = selectedComputer => {
     computerFeatureTextElement.innerText = selectedComputer.specs.join("\n")
 }
 
+/* 
+
+a function that fires when a new computer is selected in the select element
+takes the index of that computer and calls the updateComputerInfo function
+*/
+
 const handleComputerSelectChange = e => {
     const selectedComputer = computers[e.target.selectedIndex];
 
     updateComputerInfo(selectedComputer);
 
 }
+
+selectElement.addEventListener("change", handleComputerSelectChange);
+
+
+/* 
+A function that fires when the work btn is clicked. adds 100 to the pay amount element
+*/
 
 const handleWorkBtn = () => {
     let currentValue = parseInt(payAmountBalanceElement.innerText);
@@ -64,11 +98,12 @@ const handleWorkBtn = () => {
 }
 
 
+/* 
+
+this function fires when the loan btn is clicked. 
+*/
 
 const handleLoanBtn = () => {
-
-    let currentPayAmount = parseInt(payAmountBalanceElement.innerText);
-
 
     let currentBankAmount = parseInt(bankBalanceElement.innerText);
 
@@ -76,14 +111,16 @@ const handleLoanBtn = () => {
 
     let requestedLoanAmount = parseInt(prompt(`How much you want to get a loan for? \n Maximum amount is: ${maximumLoanAmount}`));
 
+    //checks if the requested amount is not 0 and if it's a number
     if (requestedLoanAmount != 0 && !isNaN(requestedLoanAmount)) {
 
-        console.log(requestedLoanAmount);
+        //checks if user already has a loan
         if (!hasLoan) {
+            //checks if the requested amount is OK
             if (requestedLoanAmount <= maximumLoanAmount) {
-                outstandingLoanAmountElement.innerText = parseInt(outstandingLoanAmountElement.innerHTML) + parseInt(requestedLoanAmount);
+                outstandingLoanAmountElement.innerText =  requestedLoanAmount;
 
-                bankBalanceElement.innerText = (parseInt(requestedLoanAmount) + parseInt(bankBalanceElement.innerText))
+                bankBalanceElement.innerText = requestedLoanAmount + currentBankAmount;
 
 
             } else {
@@ -96,7 +133,8 @@ const handleLoanBtn = () => {
 }
 
 
-
+/* handles changes in the outstanding loan value
+if it's changed, check if the value is greater then 0 then set to be visable, if it's below 0 it will go invisible */
 const handleOutStandingLoanChange = () => {
 
     if (parseInt(outstandingLoanAmountElement.innerText) > 0) {
@@ -114,6 +152,9 @@ const handleOutStandingLoanChange = () => {
 }
 
 
+
+// Fires when the repay btn is clicked - calls the repayLoanHandler function
+
 const handleRepayBtn = () => {
 
 
@@ -126,13 +167,20 @@ const handleRepayBtn = () => {
 }
 
 
+/* 
 
+Function that fires when bank btn is clicked
+
+*/
 const handleBankBtn = () => {
     payAmountBalance = parseInt(payAmountBalanceElement.innerText);
     bankBalance = parseInt(bankBalanceElement.innerText);
+    //checks if paybalance is not 0
     if (payAmountBalanceElement != 0) {
-
+        // checks if there is a loan
         if (!hasLoan) {
+
+            //adds the new founds to the bank
 
             bankBalanceElement.innerText = payAmountBalance + bankBalance;
 
@@ -140,9 +188,13 @@ const handleBankBtn = () => {
           
         } else {
 
+            // shaves 10 % the paybalance and uses it to pay the loan 
+
             let payAmountBalanceToLoan = (payAmountBalance * 0.1)
 
             repayLoanHandler(payAmountBalanceToLoan);
+
+            // takes the 10 % of the paybalance and puts what remains in a variable that goes to the bank
 
             let payAmountBalanceToBank = payAmountBalance - payAmountBalanceToLoan;
 
@@ -156,14 +208,15 @@ const handleBankBtn = () => {
 
 }
 
+//is used to pay back the loan
 function repayLoanHandler(repayAmount) {
 
     let outstandingLoanAmount = parseInt(outstandingLoanAmountElement.innerHTML);
 
-
+    //checks if the amount is 0
     if (repayAmount !== 0) {
 
-
+        // if the repayamount is greater then the loan you get some left that can go to the bank
         if (repayAmount >= outstandingLoanAmount) {
 
             let restAmount = repayAmount - outstandingLoanAmount;
@@ -175,6 +228,8 @@ function repayLoanHandler(repayAmount) {
             payAmountBalanceElement.innerText = 0;
 
         } else {
+
+            //takes the repay amount and pay for some of the loan amount
 
             outstandingLoanAmountElement.innerText = outstandingLoanAmount - repayAmount;
 
@@ -216,7 +271,7 @@ repayBtnElement.addEventListener("click", handleRepayBtn);
 
 outstandingLoanAmountElement.addEventListener("DOMSubtreeModified", handleOutStandingLoanChange);
 
-selectElement.addEventListener("change", handleComputerSelectChange);
+
 
 workBtnElement.addEventListener("click", handleWorkBtn);
 
