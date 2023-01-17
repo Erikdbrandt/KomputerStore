@@ -118,7 +118,7 @@ const handleLoanBtn = () => {
         if (!hasLoan) {
             //checks if the requested amount is OK
             if (requestedLoanAmount <= maximumLoanAmount) {
-                outstandingLoanAmountElement.innerText =  requestedLoanAmount;
+                outstandingLoanAmountElement.innerText = requestedLoanAmount;
 
                 bankBalanceElement.innerText = requestedLoanAmount + currentBankAmount;
 
@@ -185,7 +185,7 @@ const handleBankBtn = () => {
             bankBalanceElement.innerText = payAmountBalance + bankBalance;
 
             payAmountBalanceElement.innerText = 0;
-          
+
         } else {
 
             // shaves 10 % the paybalance and uses it to pay the loan 
@@ -240,6 +240,7 @@ function repayLoanHandler(repayAmount) {
 }
 
 
+//Checks if you can buy a computer and if so displays a alert that says that it's yours :)
 
 const handleBuyComputer = () => {
 
@@ -248,14 +249,14 @@ const handleBuyComputer = () => {
     let computerPrice = parseInt(computerPriceElement.innerText);
 
 
-    if(bankBalance >= computerPrice){
-        
+    if (bankBalance >= computerPrice) {
+
         bankBalanceElement.innerText = bankBalance - computerPrice;
 
         alert(`You are now the owner of ${computerSelectedNameElement.innerText}`)
-        
 
-    }else{
+
+    } else {
         alert(`Like we say in sweden: Pengar kan bygga ett hus, men det krävs kärlek för att göra det till ett hem. \n English: You are broke `)
     }
 
@@ -263,7 +264,7 @@ const handleBuyComputer = () => {
 }
 
 
-buyComputerBtnElement.addEventListener("click", handleBuyComputer )
+buyComputerBtnElement.addEventListener("click", handleBuyComputer)
 
 bankBtnElement.addEventListener("click", handleBankBtn);
 
