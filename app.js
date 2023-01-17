@@ -112,7 +112,7 @@ const handleLoanBtn = () => {
     let requestedLoanAmount = parseInt(prompt(`How much you want to get a loan for? \n Maximum amount is: ${maximumLoanAmount}`));
 
     //checks if the requested amount is not 0 and if it's a number
-    if (requestedLoanAmount != 0 && !isNaN(requestedLoanAmount)) {
+    if (requestedLoanAmount !== 0 && !isNaN(requestedLoanAmount)) {
 
         //checks if user already has a loan
         if (!hasLoan) {
@@ -178,7 +178,7 @@ const handleBankBtn = () => {
     bankBalance = parseInt(bankBalanceElement.innerText);
     
     //checks if paybalance is not 0
-    if (payAmountBalanceElement != 0) {
+    if (payAmountBalanceElement !== 0) {
         // checks if there is a loan
         if (!hasLoan) {
 
