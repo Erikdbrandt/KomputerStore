@@ -178,7 +178,7 @@ const handleBankBtn = () => {
     bankBalance = parseInt(bankBalanceElement.innerText);
     
     //checks if paybalance is not 0
-    if (payAmountBalanceElement !== 0) {
+    if (payAmountBalanceElement != 0) {
         // checks if there is a loan
         if (!hasLoan) {
 
@@ -218,7 +218,7 @@ function repayLoanHandler(repayAmount) {
     //checks if the amount is 0
     if (repayAmount !== 0) {
 
-        // if the repayamount is greater then the loan you get some left that can go to the bank
+        // if the repayamount is greater than the loan you get some left that can go to the bank
         if (repayAmount >= outstandingLoanAmount) {
 
             let restAmount = repayAmount - outstandingLoanAmount;
